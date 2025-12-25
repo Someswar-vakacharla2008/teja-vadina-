@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Teja 🎂</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: black;
+  color: white;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* HEART */
+#heart {
+  width: 150px;
+  height: 150px;
+  background: pink;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  cursor: pointer;
+  animation: pulse 1.5s infinite;
+}
+
+#heart::before,
+#heart::after {
+  content: "";
+  width: 150px;
+  height: 150px;
+  background: pink;
+  border-radius: 50%;
+  position: absolute;
+}
+
+#heart::before {
+  top: -75px;
+  left: 0;
+}
+
+#heart::after {
+  left: 75px;
+  top: 0;
+}
+
+#heart span {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: rotate(45deg) translateY(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+}
+
+/* PULSE */
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(-45deg) scale(1.1); }
+  100% { transform: translate(-50%, -50%) rotate(-45deg) scale(1); }
+}
+
+/* LOADING */
+#loading {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  border: 6px solid #222;
+  border-top: 6px solid pink;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ROAD */
+#road {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background: #333;
+  display: none;
+}
+
+/* BALL */
+#ball {
+  width: 30px;
+  height: 30px;
+  background: pink;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+/* TREE */
+#tree {
+  width: 10px;
+  height: 120px;
+  background: brown;
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+}
+
+/* LEAVES */
+.leaf {
+  width: 20px;
+  height: 20px;
+  background: red;
+  position: absolute;
+  transform: rotate(-45deg);
+  animation: fadeIn 3s forwards;
+}
+
+.leaf::before,
+.leaf::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.leaf::before { top: -10px; }
+.leaf::after { left: 10px; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* TEXT */
+#message {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  display: none;
+}
+
+.line {
+  margin: 10px;
+  font-size: 20px;
+  animation: slideUp 1s forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* WAVES */
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 100px;
+  bottom: 80px;
+  background: linear-gradient(90deg, green, blue);
+  opacity: 0.2;
+  animation: waveMove 6s infinite linear;
+}
+
+@keyframes waveMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+</style>
+</head>
+
+<body>
+
+<div id="heart" onclick="start()">
+  <span>Click Here</span>
+</div>
+
+<div id="loading">
+  <div class="loader"></div>
+  <p>Loading Magic...</p>
+</div>
+
+<div id="road"></div>
+<div class="wave"></div>
+<div id="ball"></div>
+<div id="tree"></div>
+
+<div id="message">
+  <div class="line">Happy Birthday Teja, you bring light wherever you go 🌸</div>
+  <div class="line">Your smile makes every moment warmer and brighter 💕</div>
+  <div class="line">You have a heart filled with kindness and grace 💝</div>
+  <div class="line">Your character inspires peace and positivity 🪷</div>
+  <div class="line">You turn ordinary days into beautiful memories 🍂</div>
+  <div class="line">Your presence feels calm and refreshing 🫧</div>
+  <div class="line">You flow through life with strength and elegance 🌊</div>
+  <div class="line">Your dreams have wings and limitless skies 🪽</div>
+  <div class="line">You carry purity, beauty, and wisdom within 🦢</div>
+  <div class="line">May your life always bloom with love and joy 🫶</div>
+</div>
+
+<script>
+function start() {
+  document.getElementById("heart").style.display = "none";
+  document.getElementById("loading").style.display = "block";
+
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("road").style.display = "block";
+    dropBall();
+  }, 5000);
+}
+
+function dropBall() {
+  let ball = document.getElementById("ball");
+  ball.style.display = "block";
+  let top = -50;
+
+  let fall = setInterval(() => {
+    top += 5;
+    ball.style.top = top + "px";
+
+    if (top >= window.innerHeight - 140) {
+      clearInterval(fall);
+      ball.style.display = "none";
+      growTree();
+    }
+  }, 20);
+}
+
+function growTree() {
+  let tree = document.getElementById("tree");
+  tree.style.display = "block";
+
+  setTimeout(() => {
+    for (let i = 0; i < 20; i++) {
+      let leaf = document.createElement("div");
+      leaf.className = "leaf";
+      leaf.style.background = ["pink", "red", "orange"][Math.floor(Math.random()*3)];
+      leaf.style.left = (50 + Math.random()*10 - 5) + "%";
+      leaf.style.top = (window.innerHeight - 300 - Math.random()*80) + "px";
+      document.body.appendChild(leaf);
+    }
+    document.getElementById("message").style.display = "block";
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
